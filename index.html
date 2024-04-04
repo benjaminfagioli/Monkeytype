@@ -1,0 +1,65 @@
+<head>
+  <link rel="stylesheet" href="style.css" />
+  <title>Monkeytype | Clone</title>
+</head>
+<body>
+  <main>
+    <aside>
+      <section>
+        <article>
+          <h2>Capslock <span id="capsLock"></span></h2>
+        </article>
+        <article>
+          <h2>
+            Language
+            <button class="language" id="language-en">en</button>
+            <button class="language" id="language-es">es</button>
+            <button class="language" id="language-es">de</button>
+            <button class="language" id="language-fr">fr</button>
+            <button class="language" id="language-br">br</button>
+          </h2>
+        </article>
+        <article>
+          <h2>
+            Time
+            <button class="time" id="time-15">15</button>
+            <button class="time" id="time-30">30</button>
+            <button class="time" id="time-60">60</button>
+          </h2>
+        </article>
+      </section>
+    </aside>
+    <section id="game">
+      <time></time>
+      <p></p>
+      <input autofocus />
+    </section>
+    <section id="results">
+      <h2>wpm</h2>
+      <h3 id="wpm"></h3>
+
+      <h2>accuracy</h2>
+      <h3 id="accuracy"></h3>
+
+      <button id="reload-button">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747"
+          />
+          <path d="M20 4v5h-5" />
+        </svg>
+      </button>
+    </section>
+  </main>
+  <script src="index.js" type="module"></script>
+</body>
