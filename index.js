@@ -1,4 +1,11 @@
-import { words as INITIAL_WORDS } from "./data.js";
+import {
+  words as en,
+  palabras as es,
+  palavras as pr,
+  mots as fr,
+  worter as de,
+} from "./data.js";
+const languages = { es: es, en: en, pr: pr, fr: fr, de: de };
 const $time = document.querySelector("time");
 const $paraghaph = document.querySelector("p");
 const $input = document.querySelector("input");
@@ -8,6 +15,8 @@ const $wpm = document.querySelector("#wpm");
 const $accuracy = document.querySelector("#accuracy");
 const $reloadButton = document.querySelector("#reload-button");
 const $capsLock = document.querySelector("#capsLock");
+const $languagesButtons = document.querySelectorAll(".language");
+const $timeButtons = document.querySelectorAll(".time");
 let playing;
 
 let INITIAL_TIME = 5;
@@ -15,15 +24,15 @@ let INITIAL_TIME = 5;
 let words = [];
 let currentTime = INITIAL_TIME;
 
-initGame();
+initGame(localStorage.getItem("lang") || "en");
 initEvents();
 
-function initGame() {
+function initGame(language) {
   playing = false;
   $input.value = "";
   $game.style.display = "flex";
   $results.style.display = "none";
-  words = INITIAL_WORDS.toSorted(() => Math.random() - 0.5).slice(0, 48);
+  words = languages[language].toSorted(() => Math.random() - 0.5).slice(0, 48);
   currentTime = INITIAL_TIME;
 
   $time.textContent = currentTime;
@@ -69,16 +78,31 @@ function initEvents() {
   });
   $input.addEventListener("keydown", onKeyDown);
   $input.addEventListener("keyup", onKeyUp);
-  $reloadButton.addEventListener("click", initGame);
-  document.querySelectorAll(".time").forEach(($timeButton) =>
+  $reloadButton.addEventListener("click", () =>
+    initGame(localStorage.getItem("lang"))
+  );
+  $timeButtons.forEach(($timeButton) =>
     $timeButton.addEventListener("click", () => {
       if (!playing) {
+        $timeButtons.forEach((l) => l.classList.remove("langActive"));
+        $timeButton.classList.add("langActive");
         currentTime = $timeButton.innerText;
         $time.innerHTML = currentTime;
       }
     })
   );
-  // document.querySelectorAll(".language").forEach(($languageButton) =>)
+
+  $languagesButtons.forEach(($languageButton) => {
+    $languageButton.innerText == localStorage.getItem("lang") &&
+      $languageButton.classList.add("langActive");
+
+    $languageButton.addEventListener("click", () => {
+      localStorage.setItem("lang", $languageButton.innerText);
+      $languagesButtons.forEach((l) => l.classList.remove("langActive"));
+      $languageButton.classList.add("langActive");
+      initGame(localStorage.getItem("lang"));
+    });
+  });
 }
 
 function onKeyDown(e) {

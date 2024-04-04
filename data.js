@@ -544,7 +544,7 @@ export const mots = [
   "s'est",
   "t-on",
 ];
-export const wörter = [
+export const worter = [
   "aber",
   "alle",
   "als",

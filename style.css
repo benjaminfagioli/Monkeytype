@@ -126,13 +126,18 @@ aside h2 {
     margin-left: 10px;
     background: #2d2d2d;
     border: none;
-    padding: 10px;
+    height: 36px;
+    width: 36px;
     border-radius: 5px;
-    transition: background 0.4s;
+    transition: background 0.3s;
     cursor: pointer;
     &:hover {
       background: #3b3b3b;
     }
+  }
+  .langActive {
+    background-color: var(--yellow);
+    color: var(--black);
   }
 }
 
