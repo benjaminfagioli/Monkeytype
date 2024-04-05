@@ -65,9 +65,11 @@ function initEvents() {
       $capsLock.style.backgroundColor = "#3b3b3b";
     }
   });
-  document.addEventListener("keydown", () => {
+  document.addEventListener("keydown", (e) => {
+    const { key } = e;
+
     $input.focus();
-    if (!playing) {
+    if (!playing && key != "CapsLock") {
       playing = true;
       const intervalId = setInterval(() => {
         currentTime--;
@@ -104,10 +106,15 @@ function initEvents() {
       $languageButton.classList.add("langActive");
 
     $languageButton.addEventListener("click", () => {
-      localStorage.setItem("lang", $languageButton.innerText);
-      $languagesButtons.forEach((l) => l.classList.remove("langActive"));
-      $languageButton.classList.add("langActive");
-      initGame(localStorage.getItem("lang"));
+      if (!playing) {
+        localStorage.setItem("lang", $languageButton.innerText);
+        $languagesButtons.forEach((l) => l.classList.remove("langActive"));
+        $languageButton.classList.add("langActive");
+        initGame(
+          localStorage.getItem("lang"),
+          Number(localStorage.getItem("time"))
+        );
+      }
     });
   });
 }

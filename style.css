@@ -7,6 +7,7 @@
   --gray: #818181;
   --white: #d0d0d0;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -18,21 +19,21 @@
 }
 
 body {
-  font-size: 23;
+  font-size: 16;
   font-family: "Courier New", Courier, monospace;
   background: var(--black);
-  display: grid;
-  place-content: center;
   text-wrap: wrap;
-  padding: 20px;
 }
 main section {
   padding: 20px;
   display: flex;
   flex-direction: column;
+}
+aside section {
   gap: 10px;
 }
 time {
+  font-size: 1.3em;
   font-weight: bold;
   color: var(--yellow);
 }
@@ -78,7 +79,19 @@ letter {
   }
 }
 #game {
-  padding: 1 150px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 0 50px;
+  & article {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
 }
 #results {
   display: none;
@@ -104,6 +117,7 @@ letter {
   }
 }
 aside h2 {
+  font-size: 1.5em;
   display: flex;
   align-items: center;
   #capsLock {
@@ -138,6 +152,9 @@ aside h2 {
   .langActive {
     background-color: var(--yellow);
     color: var(--black);
+    &:hover {
+      color: var(--gray);
+    }
   }
 }
 
