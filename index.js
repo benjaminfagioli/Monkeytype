@@ -19,21 +19,24 @@ const $languagesButtons = document.querySelectorAll(".language");
 const $timeButtons = document.querySelectorAll(".time");
 let playing;
 
-let INITIAL_TIME = 5;
+let INITIAL_TIME = localStorage.getItem("time");
 
 let words = [];
-let currentTime = INITIAL_TIME;
+let currentTime = INITIAL_TIME || 5;
 
-initGame(localStorage.getItem("lang") || "en");
+initGame(
+  localStorage.getItem("lang") || "en",
+  Number(localStorage.getItem("time")) || 5
+);
 initEvents();
 
-function initGame(language) {
+function initGame(language, time) {
   playing = false;
   $input.value = "";
   $game.style.display = "flex";
   $results.style.display = "none";
   words = languages[language].toSorted(() => Math.random() - 0.5).slice(0, 48);
-  currentTime = INITIAL_TIME;
+  currentTime = time;
 
   $time.textContent = currentTime;
   $paraghaph.innerHTML = words
@@ -59,7 +62,7 @@ function initEvents() {
       $capsLock.style.boxShadow = "0 0 25px var(--yellow)";
     } else {
       $capsLock.style.boxShadow = "none";
-      $capsLock.style.backgroundColor = "#646464";
+      $capsLock.style.backgroundColor = "#3b3b3b";
     }
   });
   document.addEventListener("keydown", () => {
@@ -79,18 +82,22 @@ function initEvents() {
   $input.addEventListener("keydown", onKeyDown);
   $input.addEventListener("keyup", onKeyUp);
   $reloadButton.addEventListener("click", () =>
-    initGame(localStorage.getItem("lang"))
+    initGame(localStorage.getItem("lang"), Number(localStorage.getItem("time")))
   );
-  $timeButtons.forEach(($timeButton) =>
+  $timeButtons.forEach(($timeButton) => {
+    $timeButton.innerText === localStorage.getItem("time") &&
+      $timeButton.classList.add("langActive");
     $timeButton.addEventListener("click", () => {
       if (!playing) {
         $timeButtons.forEach((l) => l.classList.remove("langActive"));
         $timeButton.classList.add("langActive");
+        localStorage.setItem("time", $timeButton.innerText);
+        INITIAL_TIME = $timeButton.innerText;
         currentTime = $timeButton.innerText;
         $time.innerHTML = currentTime;
       }
-    })
-  );
+    });
+  });
 
   $languagesButtons.forEach(($languageButton) => {
     $languageButton.innerText == localStorage.getItem("lang") &&
@@ -204,6 +211,7 @@ function gameOver() {
   const accuracy = totalLetters > 0 ? (correctLetters / totalLetters) * 100 : 0;
 
   const wpm = (correctWords * 60) / INITIAL_TIME;
+
   $wpm.innerText = wpm;
   $accuracy.innerText = `${accuracy.toFixed(2)}%`;
 }

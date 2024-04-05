@@ -248,7 +248,7 @@ export const palabras = [
   "hombre",
   "puede",
   "significar",
-  "podería",
+  "podría",
   "más",
   "deber",
   "necesitar",
